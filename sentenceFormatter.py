@@ -127,8 +127,9 @@ def questionAnalyzer(sentence):
     qSet = 0
     wrd_cnt = 2
     while qSet < len(questions):
+        words = sentence[broke][wrds]
         for isQ in questions[qSet][c]:
-            if isQ == sentence[broke][wrds]:
+            if isQ == words:
                 return True        
         if sentence[wrd_cnt] > 1:
             wrds+=1
