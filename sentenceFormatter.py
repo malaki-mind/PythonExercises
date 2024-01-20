@@ -36,6 +36,7 @@ type "done" to see the final creation
 """
 
 print(greet + welcome + info)
+
 pronouns = ["i", "you", "me", "they", "he", "she", "anybody", "we", "it"]
 
 modal_verbs = [
@@ -49,7 +50,7 @@ modal_Qs = []
 maxMod = 2
 verbCount = 0
 nounCount = 0
-
+#combining modal verbs with pronouns imply a question
 while verbCount < len(modal_verbs):
     for pronoun in pronouns:
         if pronoun == "it":
@@ -63,15 +64,14 @@ while verbCount < len(modal_verbs):
             modal_Qs.append(modal_verbs[verbCount] + pronoun)
     verbCount+=1
 
-
 interrogatives = ["who", "what", "where", "when", "why", "how", "is", "are"]
-
+#conjugatsions to account for shortening "how is it going" and also some potential typos
 conjugations = ["'s", "'re", "'ve", "s", "re", "ve", "v", "r", "er", "ev"]  
 
 interog = 0
 conjug = 0
 interog_base = len(interrogatives)
-
+#easily combining conjugatiions with interrogatives
 while interog < interog_base:
     for conj in conjugations:
         interrogatives.append(interrogatives[interog] + conj)
@@ -80,7 +80,7 @@ while interog < interog_base:
 questions = [[interrogatives],[modal_Qs]]
 
 punctuations = [".", "!", "?"]
-
+#removing any punctuations from user input and casing for processing purposes
 def sentenceStripCase(sentence):
     countPunc = 0
     for punc in punctuations:
@@ -90,12 +90,14 @@ def sentenceStripCase(sentence):
     else:
         for punc in punctuations:
             sentence = sentence.strip(punc)
+    #empty sentences creates an empty list in a future function. this handles the error
     if sentence == "":
         sentence = "nice"
     sentence = sentence.casefold()
-    return sentence
-    
-
+    return sentence    
+#sentenceBreaker() is the main process for breaking down the sentence by word count
+#example input: "this is a sentence" 
+#example return [[this, this is, this is a, this is a sentence], 'this is a sentence', 4]
 def sentenceBreaker(sentence):
     i = 0    
     broken_sent = []
@@ -118,7 +120,7 @@ def sentenceBreaker(sentence):
             i+=1
             continue    
     return [broken_sent, curr_sent, word_count]
-
+#questionAnalyzer compares the elements of questions list to the output of sentenceBreaker
 def questionAnalyzer(sentence):    
     broke = c = 0
     wrds = 0
@@ -134,24 +136,24 @@ def questionAnalyzer(sentence):
         else:
             return False
     return False
-
+#helpful commands for user-friendliness
 commands = ["done", "r", "h"]
 done = commands[0]
 repeat = commands[1]
 h = commands[2]
-        
+#checkDone() triggers output of the final paragraph        
 def checkDone(sentence):    
     sentence = sentence.casefold()    
     if sentence == done:
         return True    
     return False
-
+#checkRepeat() triggers output of the previous typed sentence
 def checkRepeat(sentence):    
     sentence = sentence.casefold()
     if sentence == repeat:
         return True    
     return False
-
+#checkHelp() triggers a call to info string
 def checkHelp(sentence):
     sentence = sentence.casefold()
     if sentence == h:
@@ -159,10 +161,9 @@ def checkHelp(sentence):
     return False
 
 end = False
-
 paragraph = ""
 current_sentence = ""
-
+#main loop 
 while end == False:
     user_input = input("Type a sentence: ")
     if checkDone(user_input) == True:
