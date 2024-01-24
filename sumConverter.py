@@ -4,11 +4,12 @@ Created on Wed Jan 24 00:00:33 2024
 
 @author: Max McMahon
 
-solution to quiz prompt in Ardit Sulce's Python Mega Course on Udemy
+solution to quiz prompt in Ardit Sulce's Python Mega Course on Udemy:
+take in a list of strings (that are numbers) and convert into floats then return their total sum
+
 """
 
-#before truly understanding List Comprehension
-"""
+#my initial solution
 def sumConverter(array):
     float_true = [float(i) for i in array]
     print(float_true)
@@ -21,9 +22,11 @@ def sumConverter(array):
     
 nums = ['1.2','7.2','4.5']
 sumConverter(nums)
-"""
 
-#after reading a bit more about List Comprehensions
+#################
+#################
+
+#my optimal solution
 def sumConverter(array):
     newSum = 0
     newSum = sum(float(i) + newSum for i in array)
